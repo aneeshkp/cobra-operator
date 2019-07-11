@@ -3,9 +3,13 @@ BIN_DIR ?= "build/_output/bin"
 OPERATOR_NAME ?= cobra-operator
 OUTPUT_BINARY ?= "$(BIN_DIR)/$(OPERATOR_NAME)"
 GO_FLAGS ?= GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GO111MODULE=on
+VERSION_PKG ?= "github.com/aneeshkp/cobra-operator/pkg/version"
+COBRA_VERSION=?= "$(shell grep -v '\#'cobra.version)"
 KUBERNETES_CONFIG ?= "$(HOME)/.kube/config"
-LD_FLAGS ?= "-X $(VERSION_PKG).version=$(OPERATOR_VERSION) -X $(VERSION_PKG).buildDate=$(VERSION_DATE) -X $(VERSION_PKG).defaultJaeger=$(JAEGER_VERSION)"
+LD_FLAGS ?= "-X $(VERSION_PKG).version=$(OPERATOR_VERSION) -X $(VERSION_PKG).buildDate=$(VERSION_DATE) -X $(VERSION_PKG).defaultJaeger=$(COBRA_VERSION)"
 SDK_VERSION=v0.8.1
+
+
 
 .DEFAULT_GOAL := build
 
